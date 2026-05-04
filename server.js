@@ -1,26 +1,36 @@
 require("dotenv").config();
-const express = require("express");
-const { Pool } = require("pg");
-const cors = require("cors");
 
-const app = express();
-app.use(cors());
-app.use(express.json());
 const express = require("express");
-const app = express();
+const mysql = require("mysql2");
+const cors = require("cors");
 const path = require("path");
 
-app.use(express.json());
+const app = express();
 
-// 👇 ESTO ES CLAVE (sirve HTML)
+app.use(cors());
+app.use(express.json());
 app.use(express.static(__dirname));
-// conexión a Railway (PostgreSQL)
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+
+// 🔗 CONEXIÓN MYSQL (Railway)
+const db = mysql.createConnection({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
   ssl: {
-    rejectUnauthorized: false,
-  },
+    rejectUnauthorized: false
+  }
 });
+
+db.connect(err => {
+  if (err) {
+    console.log("❌ Error DB:", err);
+  } else {
+    console.log("✅ Conectado a MySQL 🚀");
+  }
+});
+
 
 // 🔐 RF-01 LOGIN
 app.post("/login", (req, res) => {
@@ -41,48 +51,31 @@ app.post("/login", (req, res) => {
   });
 });
 
+
 // 👤 RF-02 REGISTRAR CLIENTE
-app.post("/clientes", async (req, res) => {
+app.post("/clientes", (req, res) => {
   const { nombre, telefono, placa } = req.body;
 
-  try {
-    await pool.query(
-      "INSERT INTO clientes (nombre, telefono, placa) VALUES ($1, $2, $3)",
-      [nombre, telefono, placa]
-    );
+  const sql = "INSERT INTO clientes (nombre, telefono, placa) VALUES (?, ?, ?)";
+
+  db.query(sql, [nombre, telefono, placa], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
 
     res.json({ message: "Cliente registrado correctamente" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  });
 });
 
-// prueba
+
+// PRUEBA
 app.get("/", (req, res) => {
   res.send("Sistema Polarizado funcionando 🚗");
 });
 
+
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
-const mysql = require("mysql2");
-
-const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-db.connect(err => {
-  if (err) {
-    console.log("❌ Error DB:", err);
-  } else {
-    console.log("✅ Conectado a MySQL 🚀");
-  }
+  console.log("Servidor corriendo en puerto", PORT);
 });
