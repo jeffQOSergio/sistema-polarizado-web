@@ -1,4 +1,4 @@
-const URL = "https://TU-LINK-RENDER.onrender.com";
+const URL = "https://sistema-polarizado-web.onrender.com";
 
 // Navegación
 function mostrar(seccion) {
