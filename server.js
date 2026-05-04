@@ -23,23 +23,22 @@ const pool = new Pool({
 });
 
 // 🔐 RF-01 LOGIN
-app.post("/login", async (req, res) => {
+app.post("/login", (req, res) => {
   const { usuario, password } = req.body;
 
-  try {
-    const result = await pool.query(
-      "SELECT * FROM usuarios WHERE usuario = $1 AND password = $2",
-      [usuario, password]
-    );
+  const sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?";
 
-    if (result.rows.length > 0) {
-      res.json({ message: "Login correcto" });
-    } else {
-      res.status(401).json({ message: "Credenciales incorrectas" });
+  db.query(sql, [usuario, password], (err, results) => {
+    if (err) {
+      return res.status(500).send("Error servidor");
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+
+    if (results.length > 0) {
+      res.json({ success: true, user: results[0] });
+    } else {
+      res.status(401).json({ success: false });
+    }
+  });
 });
 
 // 👤 RF-02 REGISTRAR CLIENTE
