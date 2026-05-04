@@ -16,7 +16,13 @@ async function login() {
     const data = await res.json();
 
     if (res.ok) {
-  window.location.href = "dashboard.html";
+  document.getElementById("mensaje").style.color = "green";
+  document.getElementById("mensaje").innerText = "✔ Login correcto";
+
+  // ⬇️ ESTA ES LA CLAVE
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 1000); // espera 1 segundo
 }
 
       // Aquí luego puedes redirigir
