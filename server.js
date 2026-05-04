@@ -10,11 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// 🔗 CONEXIÓN MYSQL (Railway - PUBLIC URL)
-const db = mysql.createConnection({
-  uri: process.env.MYSQL_URL,
-  multipleStatements: true
-});
+// 🔗 CONEXIÓN MYSQL (Railway PUBLIC URL)
+const db = mysql.createConnection(process.env.MYSQL_URL);
 
 db.connect(err => {
   if (err) {
