@@ -16,6 +16,7 @@ async function login() {
     const data = await res.json();
 
     if (res.ok) {
+      window.location.href = "dashboard.html";
   document.getElementById("mensaje").style.color = "green";
   document.getElementById("mensaje").innerText = "✔ Login correcto";
 
@@ -29,6 +30,7 @@ async function login() {
       // window.location.href = "dashboard.html";
     } else {
       document.getElementById("mensaje").innerText = data.message;
+    alert("Credenciales incorrectas");
     }
 
   } catch (error) {
