@@ -60,7 +60,8 @@ app.post("/clientes", (req, res) => {
 
   db.query(sql, [nombre, telefono, placa], (err, result) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      console.log(err);
+      return res.status(500).send("Error al registrar cliente");
     }
 
     res.json({ message: "Cliente registrado correctamente" });
