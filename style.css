@@ -1,24 +1,34 @@
-body {
+/* RESET */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
+}
+
+/* LOGIN */
+body {
   background: linear-gradient(135deg, #1e3c72, #2a5298);
-  height: 100vh;
+  min-height: 100vh;
+}
+
+/* CONTENEDOR LOGIN */
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-.container {
-  width: 100%;
-  max-width: 350px;
-}
-
+/* CAJA LOGIN */
 .login-box {
   background: white;
   padding: 30px;
   border-radius: 12px;
+  width: 350px;
+  max-width: 90%;
   text-align: center;
-  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
 }
 
 .login-box h2 {
@@ -27,16 +37,16 @@ body {
 
 .login-box input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
   border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .login-box button {
   width: 100%;
-  padding: 10px;
-  background: #2a5298;
+  padding: 12px;
+  background: #2563eb;
   color: white;
   border: none;
   border-radius: 6px;
@@ -44,96 +54,12 @@ body {
 }
 
 .login-box button:hover {
-  background: #1e3c72;
+  background: #1e40af;
 }
 
 #mensaje {
   margin-top: 10px;
   color: red;
-}
-.dashboard {
-  display: flex;
-  height: 100vh;
-}
-
-.sidebar {
-  width: 220px;
-  background: #1e3c72;
-  color: white;
-  padding: 20px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.sidebar li:hover {
-  background: #2a5298;
-}
-
-.contenido {
-  flex: 1;
-  padding: 20px;
-}
-
-.seccion input {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
-  width: 250px;
-}
-
-.seccion button {
-  padding: 10px;
-  background: #2a5298;
-  color: white;
-  border: none;
-}
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial;
-}
-
-/* LOGIN CENTRADO */
-.container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f172a;
-}
-
-.login-box {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 350px;
-  max-width: 90%;
-  text-align: center;
-}
-
-.login-box input {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 10px;
-  background: #2563eb;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
 
 /* DASHBOARD */
@@ -150,13 +76,18 @@ body {
   padding: 20px;
 }
 
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
 .sidebar ul {
   list-style: none;
 }
 
 .sidebar li {
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 .sidebar li:hover {
@@ -169,12 +100,11 @@ body {
   padding: 20px;
 }
 
-/* FORMULARIO */
+/* FORMULARIOS */
 input {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
   width: 100%;
+  padding: 10px;
+  margin: 10px 0;
 }
 
 button {
@@ -183,10 +113,12 @@ button {
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-/* 📱 RESPONSIVE (LO IMPORTANTE) */
+/* 📱 RESPONSIVE (CLAVE PARA TU PROFESOR) */
 @media (max-width: 768px) {
+
   .dashboard {
     flex-direction: column;
   }
@@ -198,5 +130,9 @@ button {
 
   .contenido {
     padding: 10px;
+  }
+
+  .login-box {
+    width: 90%;
   }
 }
