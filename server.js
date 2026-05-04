@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-const path = require("path");
 
 const app = express();
 
@@ -11,13 +10,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// 🔗 CONEXIÓN MYSQL (Railway)
+// 🔗 CONEXIÓN MYSQL (Railway - PUBLIC URL)
 const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT
+  uri: process.env.MYSQL_URL,
+  multipleStatements: true
 });
 
 db.connect(err => {
@@ -33,7 +29,7 @@ app.post("/login", (req, res) => {
   const { usuario, password } = req.body;
 
   if (!usuario || !password) {
-    return res.status(400).json({ success: false });
+    return res.status(400).json({ success: false, message: "Campos vacíos" });
   }
 
   const sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?";
@@ -45,9 +41,9 @@ app.post("/login", (req, res) => {
     }
 
     if (results.length > 0) {
-      res.json({ success: true });
+      res.json({ success: true, message: "Login correcto" });
     } else {
-      res.status(401).json({ success: false });
+      res.status(401).json({ success: false, message: "Credenciales incorrectas" });
     }
   });
 });
