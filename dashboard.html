@@ -30,12 +30,16 @@
     <div id="clientes" class="seccion" style="display:none;">
       <h1>Registrar Cliente</h1>
 
-      <input type="text" id="nombre" placeholder="Nombre">
-      <input type="text" id="telefono" placeholder="Teléfono">
-      <input type="text" id="placa" placeholder="Placa">
+      <form id="formCliente">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="text" id="telefono" placeholder="Teléfono" required>
+        <input type="text" id="placa" placeholder="Placa Vehículo" required>
+      
+        <button type="submit">Guardar Cliente</button>
+      </form>
+      
+      <p id="mensaje"></p>
 
-      <button onclick="registrarCliente()">Guardar</button>
-      <p id="msgCliente"></p>
     </div>
 
     <div id="servicios" class="seccion" style="display:none;">
