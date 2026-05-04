@@ -1,5 +1,6 @@
 const URL = "https://TU-LINK-RENDER.onrender.com";
 
+// Navegación
 function mostrar(seccion) {
   document.querySelectorAll(".seccion").forEach(div => {
     div.style.display = "none";
@@ -8,30 +9,42 @@ function mostrar(seccion) {
   document.getElementById(seccion).style.display = "block";
 }
 
+// Logout
 function logout() {
   window.location.href = "index.html";
 }
 
-// REGISTRAR CLIENTE (RF-02)
-async function registrarCliente() {
-  const nombre = document.getElementById("nombre").value;
-  const telefono = document.getElementById("telefono").value;
-  const placa = document.getElementById("placa").value;
+// 🔥 RF-02 REGISTRAR CLIENTE (FORMA CORRECTA CON FORM)
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formCliente");
 
-  try {
-    const res = await fetch(URL + "/clientes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ nombre, telefono, placa })
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const placa = document.getElementById("placa").value;
+
+      try {
+        const res = await fetch(URL + "/clientes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ nombre, telefono, placa })
+        });
+
+        const data = await res.json();
+
+        document.getElementById("mensaje").innerText = data.message;
+
+        // limpiar inputs
+        form.reset();
+
+      } catch (error) {
+        document.getElementById("mensaje").innerText = "Error al registrar cliente";
+      }
     });
-
-    const data = await res.json();
-
-    document.getElementById("msgCliente").innerText = data.message;
-
-  } catch (error) {
-    document.getElementById("msgCliente").innerText = "Error al registrar";
   }
-}
+});
