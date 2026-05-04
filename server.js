@@ -17,10 +17,7 @@ const db = mysql.createConnection({
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  port: process.env.MYSQLPORT
 });
 
 db.connect(err => {
@@ -31,49 +28,54 @@ db.connect(err => {
   }
 });
 
-
-// 🔐 RF-01 LOGIN
+// 🔐 LOGIN (RF-01)
 app.post("/login", (req, res) => {
   const { usuario, password } = req.body;
+
+  if (!usuario || !password) {
+    return res.status(400).json({ success: false });
+  }
 
   const sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?";
 
   db.query(sql, [usuario, password], (err, results) => {
     if (err) {
-      return res.status(500).send("Error servidor");
+      console.log(err);
+      return res.status(500).json({ success: false });
     }
 
     if (results.length > 0) {
-      res.json({ success: true, user: results[0] });
+      res.json({ success: true });
     } else {
       res.status(401).json({ success: false });
     }
   });
 });
 
-
-// 👤 RF-02 REGISTRAR CLIENTE
+// 👤 REGISTRAR CLIENTE (RF-02)
 app.post("/clientes", (req, res) => {
   const { nombre, telefono, placa } = req.body;
 
+  if (!nombre || !telefono || !placa) {
+    return res.status(400).json({ message: "Campos incompletos" });
+  }
+
   const sql = "INSERT INTO clientes (nombre, telefono, placa) VALUES (?, ?, ?)";
 
-  db.query(sql, [nombre, telefono, placa], (err, result) => {
+  db.query(sql, [nombre, telefono, placa], (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).send("Error al registrar cliente");
+      return res.status(500).json({ message: "Error al registrar cliente" });
     }
 
     res.json({ message: "Cliente registrado correctamente" });
   });
 });
 
-
-// PRUEBA
+// 🟢 TEST
 app.get("/", (req, res) => {
   res.send("Sistema Polarizado funcionando 🚗");
 });
-
 
 const PORT = process.env.PORT || 3000;
 
