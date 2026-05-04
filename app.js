@@ -16,8 +16,8 @@ async function login() {
     const data = await res.json();
 
     if (res.ok) {
-      document.getElementById("mensaje").style.color = "green";
-      document.getElementById("mensaje").innerText = "✔ Login correcto";
+  window.location.href = "dashboard.html";
+}
 
       // Aquí luego puedes redirigir
       // window.location.href = "dashboard.html";
