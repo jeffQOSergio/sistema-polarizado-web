@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Sistema Polarizado</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="sidebar">
+    <h2>🚗 Polarizado</h2>
+    <ul>
+      <li onclick="mostrar('inicio')">🏠 Inicio</li>
+      <li onclick="mostrar('clientes')">👤 Clientes</li>
+      <li onclick="mostrar('servicios')">🛠 Servicios</li>
+      <li onclick="mostrar('reportes')">📊 Reportes</li>
+      <li onclick="logout()">🚪 Salir</li>
+    </ul>
+  </div>
+
+  <div class="contenido">
+
+    <div id="inicio" class="seccion">
+      <h1>Bienvenido al sistema</h1>
+      <p>Gestión de servicios de polarizado vehicular</p>
+    </div>
+
+    <div id="clientes" class="seccion" style="display:none;">
+      <h1>Registrar Cliente</h1>
+
+      <input type="text" id="nombre" placeholder="Nombre">
+      <input type="text" id="telefono" placeholder="Teléfono">
+      <input type="text" id="placa" placeholder="Placa">
+
+      <button onclick="registrarCliente()">Guardar</button>
+      <p id="msgCliente"></p>
+    </div>
+
+    <div id="servicios" class="seccion" style="display:none;">
+      <h1>Servicios</h1>
+      <p>Aquí irá el registro de polarizados</p>
+    </div>
+
+    <div id="reportes" class="seccion" style="display:none;">
+      <h1>Reportes</h1>
+      <p>Aquí irán las estadísticas</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
