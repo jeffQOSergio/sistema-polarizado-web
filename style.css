@@ -9,6 +9,10 @@
   width: 120px;
   margin-bottom: 15px;
 }
+.logo-dashboard {
+  width: 140px;
+  margin-bottom: 10px;
+}
 
 /* FONDO GLOBAL */
 body {
@@ -93,6 +97,7 @@ body {
 
 /* SIDEBAR PRO */
 .sidebar {
+  text-align: center;
   width: 230px;
   background: linear-gradient(180deg, #1e293b, #0f172a);
   color: white;
