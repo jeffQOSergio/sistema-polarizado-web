@@ -8,6 +8,32 @@
 .logo {
   width: 120px;
   margin-bottom: 15px;
+  animation: aparecer 1.2s ease;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.loader {
+  margin: 15px auto;
+  border: 4px solid #ccc;
+  border-top: 4px solid #2563eb;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 .logo-dashboard {
   width: 140px;
