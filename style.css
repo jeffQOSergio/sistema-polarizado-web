@@ -5,6 +5,10 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
+.logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
 
 /* FONDO GLOBAL */
 body {
