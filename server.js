@@ -71,7 +71,12 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
+app.get("/clientes/count", (req, res) => {
+  db.query("SELECT COUNT(*) as total FROM clientes", (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json(result[0]);
+  });
+});
 app.listen(PORT, () => {
   console.log("Servidor corriendo en puerto", PORT);
 });
