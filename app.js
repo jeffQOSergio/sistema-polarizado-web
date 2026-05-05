@@ -3,6 +3,9 @@ const URL = "https://TU-LINK-RENDER.onrender.com";
 async function login() {
   const usuario = document.getElementById("usuario").value;
   const password = document.getElementById("password").value;
+  const loader = document.getElementById("loader");
+
+  loader.style.display = "block";
 
   try {
     const res = await fetch(URL + "/login", {
@@ -15,17 +18,19 @@ async function login() {
 
     const data = await res.json();
 
-    if (res.ok) {
+    loader.style.display = "none";
+
+    if (data.success) {
       window.location.href = "dashboard.html";
-  document.getElementById("mensaje").style.color = "green";
-  document.getElementById("mensaje").innerText = "✔ Login correcto";
+    } else {
+      document.getElementById("mensaje").innerText = "Credenciales incorrectas";
+    }
 
-  // ⬇️ ESTA ES LA CLAVE
-  setTimeout(() => {
-    window.location.href = "dashboard.html";
-  }, 1000); // espera 1 segundo
+  } catch (error) {
+    loader.style.display = "none";
+    document.getElementById("mensaje").innerText = "Error conexión servidor";
+  }
 }
-
       // Aquí luego puedes redirigir
       // window.location.href = "dashboard.html";
     } else {
