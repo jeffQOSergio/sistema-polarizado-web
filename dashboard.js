@@ -16,6 +16,12 @@ function logout() {
 
 // 🔥 RF-02 REGISTRAR CLIENTE (FORMA CORRECTA CON FORM)
 document.addEventListener("DOMContentLoaded", () => {
+  // cargar total clientes
+fetch(URL + "/clientes/count")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("totalClientes").innerText = data.total;
+  });
   const form = document.getElementById("formCliente");
 
   if (form) {
